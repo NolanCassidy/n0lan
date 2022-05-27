@@ -14,9 +14,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mintlify/figstack/issues"
+    "url": "https://github.com/nolancassidy/n0lan/issues"
   },
-  "homepage": "https://github.com/mintlify/figstack#readme",
+  "homepage": "https://github.com/nolancassidy/n0lan#readme",
   "dependencies": {
     "@types/analytics-node": "^3.1.5",
     "@types/cors": "^2.8.12",
