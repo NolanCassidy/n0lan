@@ -15,8 +15,8 @@ const auth0Domain = IS_DEV
   : "https://n0lan.us.auth0.com";
 const responseType = "code";
 const clientId = IS_DEV
-  ? "nv8BC1pmSBIw2HMNRqsd8Bkl5xwc1ipN"
-  : "zyVI6tCd7UQ44NCkqlx3TsulhrLtMYzm";
+  ? "RggomWkW1VJtyNVtPSUS1JoGkbtdvDkf"
+  : "RggomWkW1VJtyNVtPSUS1JoGkbtdvDkf";
 const scope = "openid profile email offline_access";
 // Scheme is used to distinguish between VS Code and VS Code Internals
 export const getLoginURL = (uriScheme: string) => {
