@@ -26,3 +26,6 @@ jobs:
           appdir: "server"
         env:
           HD_MONGO_URI: ${{secrets.MONGO_URI}}
+          HD_AUTH0_ISSUER_BASE_URL: ${{secrets.AUTH0_ISSUER_BASE_URL}}
+          HD_OPENAI_TOKEN: ${{secrets.OPENAI_TOKEN}}
+          HD_STRIPE_KEY: ${{secrets.STRIPE_KEY}}
