@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nolancassidy/n0lan.git"
+    "url": "git+https://github.com/NolanCassidy/n0lan.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nolancassidy/n0lan/issues"
+    "url": "https://github.com/NolanCassidy/n0lan/issues"
   },
-  "homepage": "https://github.com/nolancassidy/n0lan#readme",
+  "homepage": "https://github.com/NolanCassidy/n0lan#readme",
   "dependencies": {
     "@types/analytics-node": "^3.1.5",
     "@types/cors": "^2.8.12",
