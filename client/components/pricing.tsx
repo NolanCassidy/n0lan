@@ -1,47 +1,49 @@
-import Link from 'next/link';
-import { CheckIcon } from '@heroicons/react/outline';
-import useUser from '@components/hooks/useUser';
-import { ENDPOINT } from 'api-helper/connection';
+import Link from "next/link";
+import { CheckIcon } from "@heroicons/react/outline";
+import useUser from "@components/hooks/useUser";
+import { ENDPOINT } from "api-helper/connection";
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isDevelopment = process.env.NODE_ENV === "development";
 
 export const tiers = [
   {
-    id: 'free',
-    name: 'Free',
-    priceId: isDevelopment ? 'price_1JRQCpKIkS09GbFgm2al6rDa' : 'price_1JRQHaKIkS09GbFgGeMrYoBm',
+    id: "free",
+    name: "Free",
+    priceId: isDevelopment
+      ? "price_1L3tbaGVXzqW0iHkEAZ9XCrO"
+      : "price_1JRQHaKIkS09GbFgGeMrYoBm",
     priceMonthly: 0,
-    description: 'Free forever. No credit card required.',
+    description: "Free forever. No credit card required.",
     features: [
-      '30 credits per month',
-      'Explain code',
-      'Language translator',
-      'Docstring writer',
-      'Time complexity',
+      "30 credits per month",
+      "Explain code",
+      "Language translator",
+      "Docstring writer",
+      "Time complexity",
     ],
   },
   {
-    id: 'starter',
-    name: 'Starter',
-    priceId: isDevelopment ? 'price_1JSvVpKIkS09GbFgWIWOIUGc' : 'price_1JSvUGKIkS09GbFgSXvPta73',
+    id: "starter",
+    name: "Starter",
+    priceId: isDevelopment
+      ? "price_1L3tbaGVXzqW0iHkNO8mU8Pb"
+      : "price_1JSvUGKIkS09GbFgSXvPta73",
     priceMonthly: 9,
-    description: 'Unleash the power of code interpretation.',
-    features: [
-      '150 credits per month',
-      'File uploading',
-      'GitHub integration',
-    ],
+    description: "Unleash the power of code interpretation.",
+    features: ["150 credits per month", "File uploading", "GitHub integration"],
   },
   {
-    id: 'unlimited',
-    name: 'Unlimited',
-    priceId: isDevelopment ? 'price_1JSvWLKIkS09GbFggJOtRqVi' : 'price_1JSvT1KIkS09GbFg1FcVFRu4',
+    id: "unlimited",
+    name: "Unlimited",
+    priceId: isDevelopment
+      ? "price_1L3tbaGVXzqW0iHkr69zv8hH"
+      : "price_1JSvT1KIkS09GbFg1FcVFRu4",
     priceMonthly: 29,
-    description: 'Build with custom tools and no boundaries.',
+    description: "Build with custom tools and no boundaries.",
     features: [
-      'Unlimited usage',
-      'Custom workflow integrations',
-      'Whiteglove customer support',
+      "Unlimited usage",
+      "Custom workflow integrations",
+      "Whiteglove customer support",
     ],
   },
 ];
@@ -54,13 +56,12 @@ export default function PricingComponent() {
       <div className="pt-12 sm:pt-16 lg:pt-24">
         <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto space-y-2 lg:max-w-none">
-            <h2 className="text-lg leading-6 font-semibold text-gray-300 uppercase tracking-wider">Pricing</h2>
+            <h2 className="text-lg leading-6 font-semibold text-gray-300 uppercase tracking-wider">
+              Pricing
+            </h2>
             <p className="text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl font-dystopian">
-              Build
-              {' '}
-              <span className="text-secondary">lightning fast</span>
-              {' '}
-              with automation
+              Build <span className="text-secondary">lightning fast</span> with
+              automation
             </p>
             <p className="text-xl text-gray-300">
               Make reading and writing code easy so you can build what matters.
@@ -75,7 +76,10 @@ export default function PricingComponent() {
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-md mx-auto space-y-4 lg:max-w-5xl lg:grid lg:grid-cols-3 lg:gap-5 lg:space-y-0">
               {tiers.map((tier) => (
-                <div key={tier.name} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
+                <div
+                  key={tier.name}
+                  className="flex flex-col rounded-lg shadow-lg overflow-hidden"
+                >
                   <div className="px-6 py-8 bg-white sm:p-10 sm:pb-6">
                     <div>
                       <h3
@@ -86,60 +90,60 @@ export default function PricingComponent() {
                       </h3>
                     </div>
                     <div className="mt-4 flex items-baseline text-6xl font-bold">
-                      $
-                      {tier.priceMonthly}
-                      <span className="ml-1 text-2xl font-medium text-gray-500">/mo</span>
+                      ${tier.priceMonthly}
+                      <span className="ml-1 text-2xl font-medium text-gray-500">
+                        /mo
+                      </span>
                     </div>
-                    <p className="mt-5 text-lg text-gray-500">{tier.description}</p>
+                    <p className="mt-5 text-lg text-gray-500">
+                      {tier.description}
+                    </p>
                   </div>
                   <div className="flex-1 flex flex-col justify-between px-6 pt-6 pb-8 bg-gray-50 space-y-6 sm:p-10 sm:pt-6">
                     <ul className="space-y-4">
                       {tier.features.map((feature) => (
                         <li key={feature} className="flex items-start">
                           <div className="flex-shrink-0">
-                            <CheckIcon className="h-6 w-6 text-green-500" aria-hidden="true" />
+                            <CheckIcon
+                              className="h-6 w-6 text-green-500"
+                              aria-hidden="true"
+                            />
                           </div>
-                          <p className="ml-3 text-base text-gray-700">{feature}</p>
+                          <p className="ml-3 text-base text-gray-700">
+                            {feature}
+                          </p>
                         </li>
                       ))}
                     </ul>
                     <div className="rounded-md shadow">
-                      {
-                        user != null
-                          ? (
-                            user.plan.name === tier.id
-                              ? (
-                                <div
-                                  className="flex items-center justify-center w-full px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-800 border-2 border-gray-800"
-                                >
-                                  Current Plan
-                                </div>
-                              )
-                              : (
-                                <form
-                                  action={`${ENDPOINT}/payment/create-checkout-session/${tier.priceId}/${user.email}`}
-                                  method="POST"
-                                >
-                                  <button
-                                    type="submit"
-                                    className="flex items-center justify-center w-full px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
-                                  >
-                                    Select
-                                  </button>
-                                </form>
-                              )
-                          )
-                          : (
-                            <Link href="/api/auth/login" passHref>
-                              <button
-                                type="button"
-                                className="flex items-center justify-center w-full px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
-                              >
-                                Get started
-                              </button>
-                            </Link>
-                          )
-                      }
+                      {user != null ? (
+                        user.plan.name === tier.id ? (
+                          <div className="flex items-center justify-center w-full px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-800 border-2 border-gray-800">
+                            Current Plan
+                          </div>
+                        ) : (
+                          <form
+                            action={`${ENDPOINT}/payment/create-checkout-session/${tier.priceId}/${user.email}`}
+                            method="POST"
+                          >
+                            <button
+                              type="submit"
+                              className="flex items-center justify-center w-full px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
+                            >
+                              Select
+                            </button>
+                          </form>
+                        )
+                      ) : (
+                        <Link href="/api/auth/login" passHref>
+                          <button
+                            type="button"
+                            className="flex items-center justify-center w-full px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
+                          >
+                            Get started
+                          </button>
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -157,11 +161,9 @@ export default function PricingComponent() {
                   </h3>
                 </div>
                 <div className="mt-4 text-lg text-gray-600">
-                  If you’re a student or nonprofit, let us know and we’ll take
-                  {' '}
-                  <span className="font-semibold text-gray-900">25%</span>
-                  {' '}
-                  off any plan. ♥️
+                  If you’re a student or nonprofit, let us know and we’ll take{" "}
+                  <span className="font-semibold text-gray-900">25%</span> off
+                  any plan. ♥️
                 </div>
               </div>
               <div className="mt-6 rounded-md shadow lg:mt-0 lg:ml-10 lg:flex-shrink-0">

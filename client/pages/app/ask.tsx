@@ -1,33 +1,37 @@
-import type { ReactElement } from 'react';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import axios from 'axios';
-import toast from 'react-hot-toast';
-import { PaperAirplaneIcon, XIcon } from '@heroicons/react/solid';
-import CodeEditor from '@components/app/CodeEditor';
-import Sidebar from '@components/app/Sidebar';
-import Dropdown from '@components/app/Dropdown';
-import { askFunction, explainLanguagesDropdown, INTRO_EXAMPLES } from '@components/app/constants';
-import FunctionCard from '@components/app/FunctionCard';
-import Badge from '@components/app/Badge';
-import useCalledStatus from '@components/hooks/useCalledStatus';
+import type { ReactElement } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { PaperAirplaneIcon, XIcon } from "@heroicons/react/solid";
+import CodeEditor from "@components/app/CodeEditor";
+import Sidebar from "@components/app/Sidebar";
+import Dropdown from "@components/app/Dropdown";
+import {
+  askFunction,
+  explainLanguagesDropdown,
+  INTRO_EXAMPLES,
+} from "@components/app/constants";
+import FunctionCard from "@components/app/FunctionCard";
+import Badge from "@components/app/Badge";
+import useCalledStatus from "@components/hooks/useCalledStatus";
 
 const languages = explainLanguagesDropdown;
 
 function classNames(...classes: any) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 type ResponsesOutput = {
   question: string;
   answer: string;
-}
+};
 
 export default function Ask() {
   const [selectedLanguage, setLanguage] = useState(languages[0]);
-  const [code, setCode] = useState('');
-  const [questionInput, setQuestionInput] = useState('');
+  const [code, setCode] = useState("");
+  const [questionInput, setQuestionInput] = useState("");
   const [outputDisplay, setOutputDisplay] = useState<ResponsesOutput[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -43,10 +47,12 @@ export default function Ask() {
       setLanguage(inputLanguage as string);
     }
     if (outputLanguage && output) {
-      setOutputDisplay([{
-        question: outputLanguage as string,
-        answer: output as string,
-      }]);
+      setOutputDisplay([
+        {
+          question: outputLanguage as string,
+          answer: output as string,
+        },
+      ]);
     }
 
     router.replace(router.pathname);
@@ -68,7 +74,7 @@ export default function Ask() {
       try {
         setIsSubmitting(true);
         // Only append the question
-        const response = await axios.post('/api/function/ask', {
+        const response = await axios.post("/api/function/ask", {
           code,
           question: questionInput,
           inputLanguage: selectedLanguage,
@@ -77,16 +83,20 @@ export default function Ask() {
         const { data } = response;
 
         if (data.error) {
-          toast.error(data.error);
+          console.log(data.error);
+          // toast.error(data.error);
         } else {
           // Add answer to response
-          setOutputDisplay([...outputDisplay, { question: questionInput, answer: data?.output }]);
+          setOutputDisplay([
+            ...outputDisplay,
+            { question: questionInput, answer: data?.output },
+          ]);
         }
 
-        setQuestionInput('');
+        setQuestionInput("");
         setIsSubmitting(false);
       } catch (error) {
-        toast.error('An unexpected error ocurred. Please try again later');
+        toast.error("An unexpected error ocurred. Please try again later");
       }
     } else {
       setIsSubmitting(false);
@@ -94,7 +104,7 @@ export default function Ask() {
   };
 
   const handleEnterKeyDown = (event: any) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       onSubmit();
     }
   };
@@ -105,9 +115,21 @@ export default function Ask() {
         <title>Ask Question</title>
       </Head>
       <FunctionCard
-        badge={<Badge name="ask" isHidden={isBadgeHidden} content="See how asking question works with an example" onClickExample={onExample} />}
+        badge={
+          <Badge
+            name="ask"
+            isHidden={isBadgeHidden}
+            content="See how asking question works with an example"
+            onClickExample={onExample}
+          />
+        }
         header={askFunction.name}
-        icon={<askFunction.icon className={classNames(askFunction.primaryBackground, 'h-5 w-5')} aria-hidden="true" />}
+        icon={
+          <askFunction.icon
+            className={classNames(askFunction.primaryBackground, "h-5 w-5")}
+            aria-hidden="true"
+          />
+        }
       >
         <div>
           <div className="grid sm:grid-cols-2 sm:gap-4">
@@ -129,38 +151,51 @@ export default function Ask() {
             </div>
             <div className="h-full mt-4 sm:m-0">
               <div className="mb-3">
-                <span className="block truncate text-gray-800 text-lg font-medium">Answers</span>
+                <span className="block truncate text-gray-800 text-lg font-medium">
+                  Answers
+                </span>
               </div>
-              <div className="relative bg-white border border-gray-200 rounded-lg text-gray-700" style={{ minHeight: '12rem' }}>
+              <div
+                className="relative bg-white border border-gray-200 rounded-lg text-gray-700"
+                style={{ minHeight: "12rem" }}
+              >
                 <div className="p-4 pb-12">
-                  {
-                    outputDisplay.map(({ question, answer }, i) => (
-                      <div className="mb-2">
-                        { i !== 0 && <div className="my-2 h-px w-full bg-gray-100" />}
-                        <p className="whitespace-pre-line text-sm">
-                          <span className="font-medium">Q:</span>
-                          {' '}
-                          {question}
-                        </p>
-                        <p className="mt-1 whitespace-pre-line text-sm font-medium">
-                          A:
-                          {' '}
-                          {answer}
-                        </p>
-                      </div>
-                    ))
-                  }
+                  {outputDisplay.map(({ question, answer }, i) => (
+                    <div className="mb-2">
+                      {i !== 0 && (
+                        <div className="my-2 h-px w-full bg-gray-100" />
+                      )}
+                      <p className="whitespace-pre-line text-sm">
+                        <span className="font-medium">Q:</span> {question}
+                      </p>
+                      <p className="mt-1 whitespace-pre-line text-sm font-medium">
+                        A: {answer}
+                      </p>
+                    </div>
+                  ))}
                   {isSubmitting && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
-                  </div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-800"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                    </div>
                   )}
                 </div>
                 <div className="absolute w-full flex border-t border-gray-200 rounded-b-md bottom-0">
@@ -176,25 +211,26 @@ export default function Ask() {
                     type="button"
                     className={classNames(
                       isSubmitting
-                        ? 'bg-gray-100 text-gray-800'
-                        : 'bg-primary hover:bg-primary-active text-white',
-                      'flex items-center px-4 py-2 border border-transparent shadow-sm rounded-br-md duration-100',
+                        ? "bg-gray-100 text-gray-800"
+                        : "bg-primary hover:bg-primary-active text-white",
+                      "flex items-center px-4 py-2 border border-transparent shadow-sm rounded-br-md duration-100"
                     )}
                     onClick={onSubmit}
                   >
-                    {isSubmitting
-                      ? (
-                        <>
-                          Cancel
-                          <XIcon className="ml-2 h-4 w-4" aria-hidden="true" />
-                        </>
-                      )
-                      : (
-                        <>
-                          Ask
-                          <PaperAirplaneIcon className="ml-2 h-4 w-4" aria-hidden="true" />
-                        </>
-                      )}
+                    {isSubmitting ? (
+                      <>
+                        Cancel
+                        <XIcon className="ml-2 h-4 w-4" aria-hidden="true" />
+                      </>
+                    ) : (
+                      <>
+                        Ask
+                        <PaperAirplaneIcon
+                          className="ml-2 h-4 w-4"
+                          aria-hidden="true"
+                        />
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
@@ -207,9 +243,5 @@ export default function Ask() {
 }
 
 Ask.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Sidebar>
-      {page}
-    </Sidebar>
-  );
+  return <Sidebar>{page}</Sidebar>;
 };

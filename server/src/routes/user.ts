@@ -1,19 +1,19 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
-import analytics from '../analytics';
-import { FigFunction } from './function';
-import User from '../models/User';
-import Fig from '../models/Fig';
+import dotenv from "dotenv";
+import express from "express";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import analytics from "../analytics";
+import { FigFunction } from "./function";
+import User from "../models/User";
+import Fig from "../models/Fig";
 
 // Default types
-type Plan = 'free' | 'starter' | 'unlimited';
+type Plan = "free" | "starter" | "unlimited";
 
 type NewTokens = {
   accessToken: string;
   refreshToken: string;
-}
+};
 
 type ChecklistItem = {
   // Contains either figFunction or link
@@ -22,7 +22,7 @@ type ChecklistItem = {
   intro: string;
   functionName: string;
   isChecked: boolean;
-}
+};
 
 type UserInfo = {
   email: string;
@@ -30,22 +30,22 @@ type UserInfo = {
   plan: {
     name: string;
     lastBilled: Date;
-  }
+  };
   userId: string;
   createdAt: Date;
   lastLogInAt: Date;
   checklist?: ChecklistItem[];
-}
+};
 
 type FromToken = {
-  userInfo: UserInfo,
-  newTokens?: NewTokens | undefined
-}
+  userInfo: UserInfo;
+  newTokens?: NewTokens | undefined;
+};
 
 type UsageInfo = {
   figsUsed: number;
   figsBudget: number | null;
-}
+};
 
 type AuthInfo = {
   email: string;
@@ -54,7 +54,7 @@ type AuthInfo = {
   picture: string;
   given_name: string;
   family_name: string;
-}
+};
 
 // Default config
 dotenv.config();
@@ -63,52 +63,65 @@ dotenv.config();
 const plansQuota = {
   free: 30,
   starter: 150,
-  unlimited: null
+  unlimited: null,
 };
 
 // Initializations
 const userRouter = express.Router();
 
-export const getAuthInfoFromToken = async (accessToken: string): Promise<AuthInfo> => {
-  const authInfoRes = await axios.get(`${process.env.AUTH0_ISSUER_BASE_URL}/userinfo`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
+export const getAuthInfoFromToken = async (
+  accessToken: string
+): Promise<AuthInfo> => {
+  const authInfoRes = await axios.get(
+    `${process.env.AUTH0_ISSUER_BASE_URL}/userinfo`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     }
-  });
+  );
 
   return authInfoRes.data;
-}
+};
 
 // Note: Refresh tokens are passed from VSCode auth instance
-const getNewTokensFromVSCRefreshToken = async (currentRefreshToken: string): Promise<NewTokens> => {
+const getNewTokensFromVSCRefreshToken = async (
+  currentRefreshToken: string
+): Promise<NewTokens> => {
   try {
-    const accessTokenRes = await axios.post(`${process.env.AUTH0_ISSUER_BASE_URL}/oauth/token`, {
-      grant_type: 'refresh_token',
-      client_id: process.env.AUTH0_VSC_CLIENT_ID,
-      client_secret: process.env.AUTH0_VSC_CLIENT_SECRET,
-      refresh_token: currentRefreshToken
-    });
-  
+    const accessTokenRes = await axios.post(
+      `${process.env.AUTH0_ISSUER_BASE_URL}/oauth/token`,
+      {
+        grant_type: "refresh_token",
+        client_id: process.env.AUTH0_VSC_CLIENT_ID,
+        client_secret: process.env.AUTH0_VSC_CLIENT_SECRET,
+        refresh_token: currentRefreshToken,
+      }
+    );
+
     const accessToken = accessTokenRes.data.access_token;
     const refreshToken = accessTokenRes.data.refresh_token;
     return { accessToken, refreshToken };
   } catch (err) {
-    throw 'Unable to authenticate using refresh tokens';
+    throw "Unable to authenticate using refresh tokens";
   }
-}
+};
 
 const getUserInfo = async (accessToken: string): Promise<UserInfo> => {
   const authInfo = await getAuthInfoFromToken(accessToken);
   const userInfo = await User.findOne({ email: authInfo.email });
 
-  if (userInfo == null) throw 'Invalid access token';
+  if (userInfo == null) throw "Invalid access token";
 
   return userInfo;
-}
+};
 
-export const getUserInfoFromToken = async (accessToken: string | null, refreshToken?: string | null): Promise<FromToken> => {
+export const getUserInfoFromToken = async (
+  accessToken: string | null,
+  refreshToken?: string | null
+): Promise<FromToken> => {
   if (accessToken == null) {
-    throw 'Unauthorized access. No tokens provided';
+    throw "Unauthorized access. No tokens provided";
   }
   try {
     const userInfo = await getUserInfo(accessToken);
@@ -119,99 +132,121 @@ export const getUserInfoFromToken = async (accessToken: string | null, refreshTo
       const userInfo = await getUserInfo(newTokens.accessToken);
       return {
         userInfo,
-        newTokens
+        newTokens,
       };
     }
 
-    throw 'Invalid tokens';
+    throw "Invalid tokens";
   }
-}
+};
 
-const getUserInfoWithChecklistFromToken = async (accessToken: string): Promise<FromToken> => {
+const getUserInfoWithChecklistFromToken = async (
+  accessToken: string
+): Promise<FromToken> => {
   const authInfo = await getAuthInfoFromToken(accessToken);
-  const userInfo = await User.aggregate([
+  const userInfo = (await User.aggregate([
     { $match: { email: authInfo.email } },
-    { $lookup: { from: 'figs', localField: 'email', foreignField: 'email', as: 'logs' } },
+    {
+      $lookup: {
+        from: "figs",
+        localField: "email",
+        foreignField: "email",
+        as: "logs",
+      },
+    },
     {
       $addFields: {
         checklist: [
           {
-            figFunction: 'explain',
-            intro: 'Have code explained with',
-            functionName: 'Explain Code',
-            isChecked: { '$in': ['explain', '$logs.figFunction'] }
+            figFunction: "explain",
+            intro: "Have code explained with",
+            functionName: "Explain Code",
+            isChecked: { $in: ["explain", "$logs.figFunction"] },
           },
           {
-            figFunction: 'ask',
-            intro: 'Get answers to your questions with',
-            functionName: 'Ask Question',
-            isChecked: { '$in': ['ask', '$logs.figFunction'] }
+            figFunction: "ask",
+            intro: "Get answers to your questions with",
+            functionName: "Ask Question",
+            isChecked: { $in: ["ask", "$logs.figFunction"] },
           },
           {
-            figFunction: 'docstring',
-            intro: 'Document a function with',
-            functionName: 'Docstring Writer',
-            isChecked: { '$in': ['docstring', '$logs.figFunction'] }
+            figFunction: "docstring",
+            intro: "Document a function with",
+            functionName: "Docstring Writer",
+            isChecked: { $in: ["docstring", "$logs.figFunction"] },
           },
           {
-            figFunction: 'complexity',
-            intro: 'Calculate efficiency with',
-            functionName: 'Time Complexity',
-            isChecked: { '$in': ['complexity', '$logs.figFunction'] }
+            figFunction: "complexity",
+            intro: "Calculate efficiency with",
+            functionName: "Time Complexity",
+            isChecked: { $in: ["complexity", "$logs.figFunction"] },
           },
           {
-            link: 'https://marketplace.visualstudio.com/items?itemName=figstack.vsc',
-            intro: 'Install the',
-            functionName: 'Figstack VSCode Extension',
-            isChecked: { '$in': ['vscode', '$logs.source'] }
-          }
+            link: "https://marketplace.visualstudio.com/items?itemName=figstack.vsc",
+            intro: "Install the",
+            functionName: "Figstack VSCode Extension",
+            isChecked: { $in: ["vscode", "$logs.source"] },
+          },
         ],
-      }
+      },
     },
-    { $project: {
-      logs: 0
-    } }
-  ]) as UserInfo[];
+    {
+      $project: {
+        logs: 0,
+      },
+    },
+  ])) as UserInfo[];
 
-  if (userInfo == null || userInfo.length === 0) throw 'Invalid access token';
+  if (userInfo == null || userInfo.length === 0) throw "Invalid access token";
 
   return { userInfo: userInfo[0] };
-}
+};
 
 const getCalledStatusFromEmail = async (email: string) => {
   const callStatus = await User.aggregate([
     { $match: { email } },
-    { $lookup: { from: 'figs', localField: 'email', foreignField: 'email', as: 'logs' } },
-    { $addFields: {
-      explain: { '$in': ['explain', '$logs.figFunction'] },
-      ask: { '$in': ['ask', '$logs.figFunction'] },
-      docstring: { '$in': ['docstring', '$logs.figFunction'] },
-      complexity: { '$in': ['complexity', '$logs.figFunction'] },
-      translate: { '$in': ['translate', '$logs.figFunction'] },
+    {
+      $lookup: {
+        from: "figs",
+        localField: "email",
+        foreignField: "email",
+        as: "logs",
+      },
     },
+    {
+      $addFields: {
+        explain: { $in: ["explain", "$logs.figFunction"] },
+        ask: { $in: ["ask", "$logs.figFunction"] },
+        docstring: { $in: ["docstring", "$logs.figFunction"] },
+        complexity: { $in: ["complexity", "$logs.figFunction"] },
+        translate: { $in: ["translate", "$logs.figFunction"] },
+      },
     },
-    { $project: {
-      explain: true,
-      ask: true,
-      docstring: true,
-      complexity: true,
-      translate: true,
+    {
+      $project: {
+        explain: true,
+        ask: true,
+        docstring: true,
+        complexity: true,
+        translate: true,
+      },
     },
-    },
-  ])
+  ]);
 
-  if (callStatus?.length === 0) throw 'Invalid email';
+  if (callStatus?.length === 0) throw "Invalid email";
 
   return callStatus[0];
-}
+};
 
-export const getUserInfoFromGitHubUsername = async (githubUsername: string): Promise<UserInfo> => {
+export const getUserInfoFromGitHubUsername = async (
+  githubUsername: string
+): Promise<UserInfo> => {
   const userInfo = await User.findOne({ githubUsername });
 
-  if (userInfo == null) throw 'Invalid GitHub username';
+  if (userInfo == null) throw "Invalid GitHub username";
 
   return userInfo;
-}
+};
 
 const getUsage = async (email: string): Promise<UsageInfo> => {
   const userInfo = await User.findOne({ email });
@@ -221,7 +256,9 @@ const getUsage = async (email: string): Promise<UsageInfo> => {
   const oneMonthAgo = currentTimestamp - 1000 * 60 * 60 * 24 * 30;
 
   const isLastBilledAtBefore = lastBilledAt.getTime() < oneMonthAgo;
-  const referenceTime = isLastBilledAtBefore ? new Date().setTime(oneMonthAgo) : lastBilledAt;
+  const referenceTime = isLastBilledAtBefore
+    ? new Date().setTime(oneMonthAgo)
+    : lastBilledAt;
   const figsAfterReference = await Fig.find({
     email,
     timestamp: { $gte: referenceTime },
@@ -231,26 +268,30 @@ const getUsage = async (email: string): Promise<UsageInfo> => {
 
   return {
     figsUsed: figsAfterReference.length,
-    figsBudget: plansQuota[currentPlanName]
-  }
-}
+    figsBudget: plansQuota[currentPlanName],
+  };
+};
 
 export const doesExceedQuota = async (email: string): Promise<boolean> => {
   const usageInfo = await getUsage(email);
   if (usageInfo.figsBudget == null) return false;
 
-  // return usageInfo.figsUsed >= usageInfo.figsBudget;
-  return false;
-}
+  return usageInfo.figsUsed >= usageInfo.figsBudget;
+  // return false;
+};
 
 type UpdateQuery = {
   lastLogInAt: Date;
   githubUsername?: string;
-}
+};
 
-export const loginOrCreateUser = async (accessToken: string, githubUsername?: string): Promise<void> => {
+export const loginOrCreateUser = async (
+  accessToken: string,
+  githubUsername?: string
+): Promise<void> => {
   const authInfo = await getAuthInfoFromToken(accessToken);
-  const { email, name, email_verified, picture, given_name, family_name } = authInfo;
+  const { email, name, email_verified, picture, given_name, family_name } =
+    authInfo;
 
   const updateQuery: UpdateQuery = {
     lastLogInAt: new Date(),
@@ -277,77 +318,78 @@ export const loginOrCreateUser = async (accessToken: string, githubUsername?: st
       profileImg: picture,
       // Free plan by default
       plan: {
-        name: 'free',
+        name: "free",
         lastBilled: new Date(),
       },
-      githubUsername
-    }
+      githubUsername,
+    };
     const newUser = new User({
       userId: newUserId,
-      ...userTraits
+      ...userTraits,
     });
     await newUser.save();
 
     try {
       analytics.identify({
         userId: newUserId,
-        traits: userTraits
+        traits: userTraits,
       });
 
       const subject = given_name
         ? `Hey ${given_name}, check out Mintlify for smart commenting`
-        : 'Check out Mintlify for smart commenting';
+        : "Check out Mintlify for smart commenting";
 
-      await axios.post('https://mandrillapp.com/api/1.0/messages/send-template', {
-        key: process.env.MAILCHIMP_TRANSACTIONAL_KEY,
-        template_name: 'signup',
-        template_content: [],
-        message: {
-          subject,
-          from_email: 'han@mintlify.com',
-          from_name: 'Han from Figstack',
-          to: [
-            {
-              email
-            }
-          ],
-          merge_language: 'handlebars',
-          global_merge_vars: []
+      await axios.post(
+        "https://mandrillapp.com/api/1.0/messages/send-template",
+        {
+          key: process.env.MAILCHIMP_TRANSACTIONAL_KEY,
+          template_name: "signup",
+          template_content: [],
+          message: {
+            subject,
+            from_email: "han@mintlify.com",
+            from_name: "Han from Figstack",
+            to: [
+              {
+                email,
+              },
+            ],
+            merge_language: "handlebars",
+            global_merge_vars: [],
+          },
         }
-      });
-
-      
+      );
     } catch (err) {
-      console.log('User also exists on Mailchimp and Segment');
+      console.log("User also exists on Mailchimp and Segment");
     }
   }
 
   analytics.track({
     userId: doesUserExist ? existingUser.userId : newUserId,
-    event: 'Login',
+    event: "Login",
   });
-}
+};
 
-userRouter.post('/login', async (req, res) => {
+userRouter.post("/login", async (req, res) => {
   const { accessToken } = req.body;
   await loginOrCreateUser(accessToken);
   return res.end();
 });
 
-userRouter.post('/v1/profile', async (req, res) => {
+userRouter.post("/v1/profile", async (req, res) => {
   const { accessToken } = req.body;
   const userInfo = await getUserInfoWithChecklistFromToken(accessToken);
   return res.send(userInfo);
 });
 
-userRouter.post('/v1/calledStatus', async (req, res) => {
+userRouter.post("/v1/calledStatus", async (req, res) => {
   const { email } = req.body;
   const calledStatus = await getCalledStatusFromEmail(email);
   return res.send(calledStatus);
-})
+});
 
 // Currently not used
-userRouter.post('/v1/usage', async (req, res) => {
+userRouter.post("/v1/usage", async (req, res) => {
   const { accessToken } = req.body;
   const authInfo = await getAuthInfoFromToken(accessToken);
   const email = authInfo.email;
@@ -355,34 +397,38 @@ userRouter.post('/v1/usage', async (req, res) => {
   return res.send(usageInfo);
 });
 
-userRouter.post('/v1/history', async (req, res) => {
+userRouter.post("/v1/history", async (req, res) => {
   const { accessToken } = req.body;
   const authInfo = await getAuthInfoFromToken(accessToken);
 
   const historyLogs = await Fig.aggregate([
     { $match: { email: authInfo.email } },
     { $sort: { timestamp: -1 } },
-    { $project: {
-      _id: false,
-      email: false,
-    } }
+    {
+      $project: {
+        _id: false,
+        email: false,
+      },
+    },
   ]);
 
   res.send(historyLogs);
+});
 
-})
-
-userRouter.put('/v1/name', async (req, res) => {
+userRouter.put("/v1/name", async (req, res) => {
   const { accessToken, name } = req.body;
   const authInfo = await getAuthInfoFromToken(accessToken);
-  const userInfo = await User.findOneAndUpdate({ email: authInfo.email }, { name });
+  const userInfo = await User.findOneAndUpdate(
+    { email: authInfo.email },
+    { name }
+  );
   analytics.identify({
     userId: userInfo.userId,
     traits: {
-      name
+      name,
     },
   });
-  return res.send({success: true})
-})
+  return res.send({ success: true });
+});
 
 export default userRouter;
