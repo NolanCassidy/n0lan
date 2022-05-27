@@ -24,3 +24,5 @@ jobs:
           heroku_app_name: n0lan
           heroku_email: nolancassidy1@gmail.com
           appdir: "server"
+        env:
+          HD_MONGO_URI: ${{secrets.MONGO_URI}}

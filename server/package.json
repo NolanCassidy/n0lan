@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/NolanCassidy/n0lan/issues"
   },
-  "homepage": "https://github.com/NolanCassidy/n0lan#readme",
+  "homepage": "https://github.com/NolanCassidy/n0lan",
   "dependencies": {
     "@types/analytics-node": "^3.1.5",
     "@types/cors": "^2.8.12",
