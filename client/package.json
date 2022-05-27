@@ -50,12 +50,12 @@
   "main": "next.config.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/figstack/backend.git"
+    "url": "git+https://github.com/NolanCassidy/n0lan.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/figstack/backend/issues"
+    "url": "https://github.com/NolanCassidy/n0lan/issues"
   },
-  "homepage": "https://github.com/figstack/backend#readme"
+  "homepage": "https://github.com/NolanCassidy/n0lan#readme"
 }

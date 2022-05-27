@@ -29,3 +29,4 @@ jobs:
           HD_AUTH0_ISSUER_BASE_URL: ${{secrets.AUTH0_ISSUER_BASE_URL}}
           HD_OPENAI_TOKEN: ${{secrets.OPENAI_TOKEN}}
           HD_STRIPE_KEY: ${{secrets.STRIPE_KEY}}
+          HD_PROJECT_PATH: ${{secrets.PROJECT_PATH}}
