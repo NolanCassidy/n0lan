@@ -10,19 +10,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
 
-    - name: Checkout source code
-      uses: actions/checkout@v2
+      - name: Install dependencies
+        working-directory: ./server
+        run: npm install --prefix ./
 
-    - name: Install dependencies
-      working-directory: ./server
-      run: npm install --prefix ./
-
-    - name: Deploy to Heroku
-      uses: akhileshns/heroku-deploy@v3.12.12
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: figstack
-        team: mintlify
-        heroku_email: han@mintlify.com
-        appdir: "server"
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: n0lan
+          team: n0lan
+          heroku_email: nolancassidy1@gmail.com
+          appdir: "server"
