@@ -12,8 +12,8 @@ const AUTH0_GITHUB_DEV = {
 };
 
 const AUTH0_GITHUB_PROD = {
-  uri: "https://n0lan.us.auth0.com",
-  clientId: "J0OhkOUXE5wHmppxnMEnH7SB3XLH9e8M",
+  uri: "https://dev-uxa1yxhj.us.auth0.com",
+  clientId: "PFwOGCe645FGv4mkskyGiqBINJoODu5z",
   redirectUri: "https://n0lan.com/github/callback",
 };
 const GITHUB_SCOPE = "openid profile email";
