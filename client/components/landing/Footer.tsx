@@ -1,28 +1,26 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import dashboard from '@assets/landing/dashboard.svg';
-import { MailIcon } from '@heroicons/react/solid';
+import Link from "next/link";
+import Image from "next/image";
+import dashboard from "@assets/landing/dashboard.svg";
+import { MailIcon } from "@heroicons/react/solid";
 
 const navigation = {
   main: [
-    { name: 'Home', href: '/' },
-    { name: 'Mintlify', href: 'https://mintlify.com' },
-    { name: 'Community', href: 'https://discord.gg/6W7GuYuxra' },
-    { name: 'Blogs', href: '/blogs/what-is-figstack' },
+    { name: "Home", href: "/" },
+    { name: "Mintlify", href: "https://mintlify.com" },
+    { name: "Community", href: "https://discord.gg/6W7GuYuxra" },
+    { name: "Blogs", href: "/blogs/what-is-n0lan" },
   ],
   social: [
     {
-      name: 'Contact Us',
-      href: 'mailto:hi@mintlify.com',
+      name: "Contact Us",
+      href: "mailto:hi@mintlify.com",
       icon: function email(props: any) {
-        return (
-          <MailIcon className="h-6 w-6" {...props} />
-        );
+        return <MailIcon className="h-6 w-6" {...props} />;
       },
     },
     {
-      name: 'Twitter',
-      href: 'https://twitter.com/mintlify',
+      name: "Twitter",
+      href: "https://twitter.com/mintlify",
       icon: function twitter(props: any) {
         return (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -32,8 +30,8 @@ const navigation = {
       },
     },
     {
-      name: 'GitHub',
-      href: 'https://github.com/mintlify/figstack',
+      name: "GitHub",
+      href: "https://github.com/mintlify/n0lan",
       icon: function github(props: any) {
         return (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -85,11 +83,17 @@ export default function Footer() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
-        <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+        <nav
+          className="-mx-5 -my-2 flex flex-wrap justify-center"
+          aria-label="Footer"
+        >
           {navigation.main.map((item) => (
             <div key={item.name} className="px-5 py-2">
               <Link key={item.name} href={item.href} passHref>
-                <button type="button" className="text-base text-gray-500 hover:text-gray-900">
+                <button
+                  type="button"
+                  className="text-base text-gray-500 hover:text-gray-900"
+                >
                   {item.name}
                 </button>
               </Link>
@@ -99,14 +103,19 @@ export default function Footer() {
         <div className="mt-8 flex justify-center space-x-6">
           {navigation.social.map((item) => (
             <Link key={item.name} href={item.href} passHref>
-              <button type="button" className="text-gray-400 hover:text-gray-500">
+              <button
+                type="button"
+                className="text-gray-400 hover:text-gray-500"
+              >
                 <span className="sr-only">{item.name}</span>
                 <item.icon className="h-6 w-6" aria-hidden="true" />
               </button>
             </Link>
           ))}
         </div>
-        <p className="mt-8 text-center text-base text-gray-400">&copy; 2022 Mintlify, Inc. All rights reserved.</p>
+        <p className="mt-8 text-center text-base text-gray-400">
+          &copy; 2022 Mintlify, Inc. All rights reserved.
+        </p>
       </div>
     </footer>
   );

@@ -1,34 +1,36 @@
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import axios from 'axios';
-import { ENDPOINT, GITHUB_AUTH_URI } from 'api-helper/connection';
-import LoadingGitHub from '@components/app/loading';
+import Head from "next/head";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { ENDPOINT, GITHUB_AUTH_URI } from "api-helper/connection";
+import LoadingGitHub from "@components/app/loading";
 
 const GitHubLogin = () => {
   const router = useRouter();
   const { code, username } = router.query;
 
   if (code != null) {
-    axios.post(`${ENDPOINT}/github/user`, {
-      code,
-    }).then((githubUserRes) => {
-      const githubUser = githubUserRes.data;
-      if (githubUser?.login != null) {
-        const githubUsername = githubUser.login;
-        window.localStorage.setItem('GitHubUsername', githubUsername);
+    axios
+      .post(`${ENDPOINT}/github/user`, {
+        code,
+      })
+      .then((githubUserRes) => {
+        const githubUser = githubUserRes.data;
+        if (githubUser?.login != null) {
+          const githubUsername = githubUser.login;
+          window.localStorage.setItem("GitHubUsername", githubUsername);
 
-        router.replace(GITHUB_AUTH_URI);
-      }
-    });
-  } else if (username != null && typeof username === 'string') {
-    window.localStorage.setItem('GitHubUsername', username);
+          router.replace(GITHUB_AUTH_URI);
+        }
+      });
+  } else if (username != null && typeof username === "string") {
+    window.localStorage.setItem("GitHubUsername", username);
     router.replace(GITHUB_AUTH_URI);
   }
 
   return (
     <>
       <Head>
-        <title>Signing in to Figstack</title>
+        <title>Signing in to N0lan</title>
       </Head>
       <LoadingGitHub />
     </>

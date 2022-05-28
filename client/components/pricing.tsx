@@ -168,7 +168,7 @@ export default function PricingComponent() {
               </div>
               <div className="mt-6 rounded-md shadow lg:mt-0 lg:ml-10 lg:flex-shrink-0">
                 <a
-                  href="mailto:hi@figstack.com"
+                  href="mailto:hi@n0lan.com"
                   className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50"
                 >
                   Request Discount

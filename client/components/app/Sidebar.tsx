@@ -1,43 +1,46 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { Dialog, Transition } from '@headlessui/react';
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { Dialog, Transition } from "@headlessui/react";
 import {
-  MenuAlt1Icon, XIcon, LogoutIcon, CogIcon,
-} from '@heroicons/react/outline';
-import {
-  SearchIcon,
-  TemplateIcon,
-  ClockIcon,
-} from '@heroicons/react/solid';
-import { Fragment, ReactNode, useState } from 'react';
-import { figFunctions } from '@components/app/constants';
-import logoFull from '@assets/app/logo-full.svg';
+  MenuAlt1Icon,
+  XIcon,
+  LogoutIcon,
+  CogIcon,
+} from "@heroicons/react/outline";
+import { SearchIcon, TemplateIcon, ClockIcon } from "@heroicons/react/solid";
+import { Fragment, ReactNode, useState } from "react";
+import { figFunctions } from "@components/app/constants";
+import logoFull from "@assets/app/logo-full.svg";
 
 const navigation = [
   {
-    name: 'Dashboard',
-    href: '/app',
+    name: "Dashboard",
+    href: "/app",
     icon: TemplateIcon,
     current: true,
   },
   {
-    name: 'History',
-    href: '/app/history',
+    name: "History",
+    href: "/app/history",
     icon: ClockIcon,
     current: false,
   },
 ];
 
 function classNames(...classes: any) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
-const Separator = () => <div className="w-full my-4 px-3"><div className="h-px bg-gray-100" /></div>;
+const Separator = () => (
+  <div className="w-full my-4 px-3">
+    <div className="h-px bg-gray-100" />
+  </div>
+);
 
 type SidebarProps = {
   children: ReactNode;
-}
+};
 
 export default function Sidebar({ children }: SidebarProps) {
   const router = useRouter();
@@ -48,7 +51,11 @@ export default function Sidebar({ children }: SidebarProps) {
   return (
     <div className="relative h-screen flex overflow-hidden bg-white">
       <Transition.Root show={sidebarOpen} as={Fragment}>
-        <Dialog as="div" className="fixed inset-0 flex z-40 lg:hidden" onClose={setSidebarOpen}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 flex z-40 lg:hidden"
+          onClose={setSidebarOpen}
+        >
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
@@ -91,12 +98,7 @@ export default function Sidebar({ children }: SidebarProps) {
                 </div>
               </Transition.Child>
               <div className="flex-shrink-0 flex items-center px-4">
-                <Image
-                  src={logoFull}
-                  height={30}
-                  width={145}
-                  alt="Figstack"
-                />
+                <Image src={logoFull} height={30} width={145} alt="Figstack" />
               </div>
               <div className="mt-5 flex-1 h-0 overflow-y-auto">
                 <nav className="px-2">
@@ -106,16 +108,20 @@ export default function Sidebar({ children }: SidebarProps) {
                         <span
                           className={classNames(
                             isCurrent(item.href)
-                              ? 'bg-gray-100 text-gray-900'
-                              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
-                            'group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-sm cursor-pointer',
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-600 hover:text-gray-900 hover:bg-gray-50",
+                            "group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-sm cursor-pointer"
                           )}
-                          aria-current={isCurrent(item.href) ? 'page' : undefined}
+                          aria-current={
+                            isCurrent(item.href) ? "page" : undefined
+                          }
                         >
                           <item.icon
                             className={classNames(
-                              isCurrent(item.href) ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                              'mr-3 flex-shrink-0 h-6 w-6',
+                              isCurrent(item.href)
+                                ? "text-gray-500"
+                                : "text-gray-400 group-hover:text-gray-500",
+                              "mr-3 flex-shrink-0 h-6 w-6"
                             )}
                             aria-hidden="true"
                           />
@@ -131,25 +137,36 @@ export default function Sidebar({ children }: SidebarProps) {
                     >
                       Fig Functions
                     </h3>
-                    <div className="mt-1 space-y-1" role="group" aria-labelledby="mobile-teams-headline">
+                    <div
+                      className="mt-1 space-y-1"
+                      role="group"
+                      aria-labelledby="mobile-teams-headline"
+                    >
                       {figFunctions.map((figFunction) => (
-                        <Link key={figFunction.name} href={figFunction.href} passHref>
+                        <Link
+                          key={figFunction.name}
+                          href={figFunction.href}
+                          passHref
+                        >
                           <span
                             className={classNames(
                               isCurrent(figFunction.href)
-                                ? 'bg-gray-100 text-gray-900'
-                                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
-                              'group flex items-center px-3 py-2 text-base leading-5 font-medium rounded-sm cursor-pointer',
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-600 hover:text-gray-900 hover:bg-gray-50",
+                              "group flex items-center px-3 py-2 text-base leading-5 font-medium rounded-sm cursor-pointer"
                             )}
                           >
                             <span
                               className={classNames(
                                 figFunction.iconBackground,
                                 figFunction.iconForeground,
-                                'rounded-sm inline-flex p-1 mr-3',
+                                "rounded-sm inline-flex p-1 mr-3"
                               )}
                             >
-                              <figFunction.icon className="h-4 w-4" aria-hidden="true" />
+                              <figFunction.icon
+                                className="h-4 w-4"
+                                aria-hidden="true"
+                              />
                             </span>
                             <span className="truncate">{figFunction.name}</span>
                           </span>
@@ -171,12 +188,7 @@ export default function Sidebar({ children }: SidebarProps) {
       <div className="hidden lg:flex lg:flex-shrink-0 border-r border-gray-50">
         <div className="relative flex flex-col w-64 shadow-lg pt-5 pb-4">
           <div className="flex items-center flex-shrink-0 pl-12">
-            <Image
-              src={logoFull}
-              height={30}
-              width={145}
-              alt="Figstack"
-            />
+            <Image src={logoFull} height={30} width={145} alt="Figstack" />
           </div>
           <Separator />
           {/* Sidebar component, swap this element with another sidebar if you like */}
@@ -189,25 +201,26 @@ export default function Sidebar({ children }: SidebarProps) {
                     <span
                       className={classNames(
                         isCurrent(item.href)
-                          ? 'bg-hero text-white'
-                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
-                        'group flex items-center px-2 py-2 text-sm font-medium rounded-sm cursor-pointer',
+                          ? "bg-hero text-white"
+                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                        "group flex items-center px-2 py-2 text-sm font-medium rounded-sm cursor-pointer"
                       )}
-                      aria-current={isCurrent(item.href) ? 'page' : undefined}
+                      aria-current={isCurrent(item.href) ? "page" : undefined}
                     >
-                      <div className={classNames(
-                        isCurrent(item.href)
-                          ? 'bg-primary-active'
-                          : 'bg-gray-200',
-                        'flex items-center p-1 rounded-sm mr-3',
-                      )}
+                      <div
+                        className={classNames(
+                          isCurrent(item.href)
+                            ? "bg-primary-active"
+                            : "bg-gray-200",
+                          "flex items-center p-1 rounded-sm mr-3"
+                        )}
                       >
                         <item.icon
                           className={classNames(
                             isCurrent(item.href)
-                              ? 'text-white'
-                              : 'text-gray-400 group-hover:text-gray-500',
-                            'flex-shrink-0 h-4 w-4',
+                              ? "text-white"
+                              : "text-gray-400 group-hover:text-gray-500",
+                            "flex-shrink-0 h-4 w-4"
                           )}
                           aria-hidden="true"
                         />
@@ -225,26 +238,37 @@ export default function Sidebar({ children }: SidebarProps) {
                 >
                   Fig Functions
                 </h3>
-                <div className="mt-1 space-y-1" role="group" aria-labelledby="desktop-teams-headline">
+                <div
+                  className="mt-1 space-y-1"
+                  role="group"
+                  aria-labelledby="desktop-teams-headline"
+                >
                   {figFunctions.map((figFunction) => (
-                    <Link key={figFunction.name} href={figFunction.href} passHref>
+                    <Link
+                      key={figFunction.name}
+                      href={figFunction.href}
+                      passHref
+                    >
                       <span
                         className={classNames(
                           isCurrent(figFunction.href)
-                            ? 'bg-hero text-white'
-                            : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
-                          'group flex items-center px-3 py-2 text-sm font-medium rounded-sm cursor-pointer',
+                            ? "bg-hero text-white"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                          "group flex items-center px-3 py-2 text-sm font-medium rounded-sm cursor-pointer"
                         )}
                       >
                         <span
                           className={classNames(
                             isCurrent(figFunction.href)
-                              ? 'bg-primary-active'
+                              ? "bg-primary-active"
                               : `${figFunction.iconBackground} ${figFunction.iconForeground}`,
-                            'rounded-sm inline-flex p-1 mr-3',
+                            "rounded-sm inline-flex p-1 mr-3"
                           )}
                         >
-                          <figFunction.icon className="h-4 w-4" aria-hidden="true" />
+                          <figFunction.icon
+                            className="h-4 w-4"
+                            aria-hidden="true"
+                          />
                         </span>
                         <span className="truncate">{figFunction.name}</span>
                       </span>
@@ -256,25 +280,26 @@ export default function Sidebar({ children }: SidebarProps) {
               <Link href="/app/settings" passHref>
                 <span
                   className={classNames(
-                    isCurrent('/app/settings')
-                      ? 'bg-hero text-white'
-                      : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
-                    'group flex items-center px-3 py-2 text-sm font-medium rounded-sm cursor-pointer',
+                    isCurrent("/app/settings")
+                      ? "bg-hero text-white"
+                      : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                    "group flex items-center px-3 py-2 text-sm font-medium rounded-sm cursor-pointer"
                   )}
                 >
-                  <div className={classNames(
-                    isCurrent('/app/settings')
-                      ? 'bg-primary-active'
-                      : 'bg-gray-200',
-                    'flex items-center p-1 rounded-sm mr-3',
-                  )}
+                  <div
+                    className={classNames(
+                      isCurrent("/app/settings")
+                        ? "bg-primary-active"
+                        : "bg-gray-200",
+                      "flex items-center p-1 rounded-sm mr-3"
+                    )}
                   >
                     <CogIcon
                       className={classNames(
-                        isCurrent('/app/settings')
-                          ? 'text-white'
-                          : 'text-gray-400 group-hover:text-gray-500',
-                        'flex-shrink-0 h-4 w-4',
+                        isCurrent("/app/settings")
+                          ? "text-white"
+                          : "text-gray-400 group-hover:text-gray-500",
+                        "flex-shrink-0 h-4 w-4"
                       )}
                       aria-hidden="true"
                     />
@@ -288,15 +313,16 @@ export default function Sidebar({ children }: SidebarProps) {
                   className="text-gray-700 hover:text-gray-900 cursor-pointer
                   hover:bg-gray-50 group flex items-center px-3 py-2 text-sm font-medium rounded-sm"
                 >
-                  <div className={classNames(
-                    'bg-gray-200',
-                    'flex items-center p-1 rounded-sm mr-3',
-                  )}
+                  <div
+                    className={classNames(
+                      "bg-gray-200",
+                      "flex items-center p-1 rounded-sm mr-3"
+                    )}
                   >
                     <LogoutIcon
                       className={classNames(
-                        'text-gray-400 group-hover:text-gray-500',
-                        'flex-shrink-0 h-4 w-4',
+                        "text-gray-400 group-hover:text-gray-500",
+                        "flex-shrink-0 h-4 w-4"
                       )}
                       aria-hidden="true"
                     />
@@ -323,7 +349,10 @@ export default function Sidebar({ children }: SidebarProps) {
                     Submit feature request
                   </div>
                 </Link>
-                <Link href="https://mintlify.com/?utm_source=figstack&utm_medium=sidebar" passHref>
+                <Link
+                  href="https://mintlify.com/?utm_source=n0lan&utm_medium=sidebar"
+                  passHref
+                >
                   <div className="mt-2 text-xs font-base text-gray-500 cursor-pointer">
                     Get code search
                   </div>
