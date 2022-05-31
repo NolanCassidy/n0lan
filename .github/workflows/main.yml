@@ -30,3 +30,5 @@ jobs:
           HD_OPENAI_TOKEN: ${{secrets.OPENAI_TOKEN}}
           HD_STRIPE_KEY: ${{secrets.STRIPE_KEY}}
           HD_PROJECT_PATH: ${{secrets.PROJECT_PATH}}
+          HD_AUTH0_VSC_CLIENT_ID: ${{secrets.AUTH0_VSC_CLIENT_ID}}
+          HD_AUTH0_VSC_CLIENT_SECRET: ${{secrets.AUTH0_VSC_CLIENT_SECRET}}
