@@ -13,7 +13,7 @@ const vscodeInsidersLogin = async (
     });
     const { refreshToken, accessToken } = refreshTokenRes.data;
     res.redirect(
-      `vscode-insiders://n0lan.vsc/callback?refreshToken=${refreshToken}&accessToken=${accessToken}`
+      `vscode-insiders://NolanCassidy.n0lan/callback?refreshToken=${refreshToken}&accessToken=${accessToken}`
     );
   } catch (error: any) {
     res.send(error.response.data);

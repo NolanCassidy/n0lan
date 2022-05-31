@@ -5,7 +5,7 @@ const vscodeInsidersLogout = async (
   res: NextApiResponse
 ) => {
   try {
-    res.redirect("vscode-insiders://n0lan.vsc/logout");
+    res.redirect("vscode-insiders://NolanCassidy.n0lan/logout");
   } catch (error: any) {
     res.send(error.response.data);
   }
