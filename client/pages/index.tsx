@@ -53,7 +53,10 @@ const LandingPage: NextPage = () => (
             <div className="lg:grid lg:grid-cols-12 lg:gap-8">
               <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
                 <div>
-                  <Link href="https://www.producthunt.com/posts/n0lan" passHref>
+                  <Link
+                    href="https://www.linkedin.com/in/nolancassidy/"
+                    passHref
+                  >
                     <button
                       type="button"
                       className="inline-flex items-center text-white bg-gray-900 rounded-full p-1 pr-2
@@ -63,10 +66,10 @@ const LandingPage: NextPage = () => (
                         className="px-3 py-0.5 text-white text-xs font-medium leading-5 uppercase
                   tracking-wide bg-primary rounded-full"
                       >
-                        #1 Product of the day
+                        Owned by Nolan Cassidy
                       </span>
                       <span className="ml-4 text-sm">
-                        Check us out on Product Hunt
+                        Check me out on linked in!
                       </span>
                       <ChevronRightIcon
                         className="ml-2 w-5 h-5 text-gray-500"
@@ -263,6 +266,7 @@ const LandingPage: NextPage = () => (
           </div>
         </main>
       </div>
+      {/*
       <LogoCloud />
       <div className="relative bg-white py-16 overflow-hidden">
         <div className="mt-8 mx-auto max-w-md px-4 text-center sm:px-6 sm:max-w-3xl lg:px-8 lg:max-w-7xl">
@@ -617,6 +621,7 @@ const LandingPage: NextPage = () => (
           </div>
         </section>
       </div>
+                  */}
       <Footer />
     </div>
   </>

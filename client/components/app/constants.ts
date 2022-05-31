@@ -1,6 +1,10 @@
 import {
-  AnnotationIcon, ClockIcon, PencilIcon, TranslateIcon, LightBulbIcon,
-} from '@heroicons/react/outline';
+  AnnotationIcon,
+  ClockIcon,
+  PencilIcon,
+  TranslateIcon,
+  LightBulbIcon,
+} from "@heroicons/react/outline";
 
 export type FigFunction = {
   id: string;
@@ -11,61 +15,65 @@ export type FigFunction = {
   iconForeground: string;
   iconBackground: string;
   primaryBackground: string;
-}
+};
 
 export const askFunction: FigFunction = {
-  id: 'ask',
+  id: "ask",
   icon: LightBulbIcon,
-  name: 'Ask Question',
-  description: 'Get answers to questions about your code as if you are asking a programming instructor',
-  href: '/app/ask',
-  iconForeground: 'text-white',
-  iconBackground: 'bg-fig-orange',
-  primaryBackground: 'text-fig-orange',
+  name: "Ask Question",
+  description:
+    "Get answers to questions about your code as if you are asking a programming instructor",
+  href: "/app/ask",
+  iconForeground: "text-white",
+  iconBackground: "bg-fig-orange",
+  primaryBackground: "text-fig-orange",
 };
 
 export const explainFunction = {
-  id: 'explain',
+  id: "explain",
   icon: AnnotationIcon,
-  name: 'Explain Code',
-  description: 'Reading code is hard! Have Figstack explain what your code does in english',
-  href: '/app/explain',
-  iconForeground: 'text-white',
-  iconBackground: 'bg-fig-pink',
-  primaryBackground: 'text-fig-pink',
+  name: "Explain Code",
+  description:
+    "Reading code is hard! Have N0lan explain what your code does in english",
+  href: "/app/explain",
+  iconForeground: "text-white",
+  iconBackground: "bg-fig-pink",
+  primaryBackground: "text-fig-pink",
 };
 
 export const translateFunction = {
-  id: 'translate',
+  id: "translate",
   icon: TranslateIcon,
-  name: 'Language Translator',
-  description: 'Convert your code from one programming language to another',
-  href: '/app/translate',
-  iconForeground: 'text-white',
-  iconBackground: 'bg-fig-yellow',
-  primaryBackground: 'text-fig-yellow',
+  name: "Language Translator",
+  description: "Convert your code from one programming language to another",
+  href: "/app/translate",
+  iconForeground: "text-white",
+  iconBackground: "bg-fig-yellow",
+  primaryBackground: "text-fig-yellow",
 };
 
 export const docstringFunction = {
-  id: 'docstring',
+  id: "docstring",
   icon: PencilIcon,
-  name: 'Docstring Writer',
-  description: 'Use Figstack to write a detailed description of how your function works',
-  href: '/app/docstring',
-  iconForeground: 'text-white',
-  iconBackground: 'bg-fig-green',
-  primaryBackground: 'text-fig-green',
+  name: "Docstring Writer",
+  description:
+    "Use N0lan to write a detailed description of how your function works",
+  href: "/app/docstring",
+  iconForeground: "text-white",
+  iconBackground: "bg-fig-green",
+  primaryBackground: "text-fig-green",
 };
 
 export const complexityFunction = {
-  id: 'complexity',
+  id: "complexity",
   icon: ClockIcon,
-  name: 'Time Complexity',
-  description: 'Calculate the time complexity of your functions in Big O notion',
-  href: '/app/complexity',
-  iconForeground: 'text-white',
-  iconBackground: 'bg-fig-purple',
-  primaryBackground: 'text-fig-purple',
+  name: "Time Complexity",
+  description:
+    "Calculate the time complexity of your functions in Big O notion",
+  href: "/app/complexity",
+  iconForeground: "text-white",
+  iconBackground: "bg-fig-purple",
+  primaryBackground: "text-fig-purple",
 };
 
 export const figFunctions: FigFunction[] = [
@@ -76,14 +84,53 @@ export const figFunctions: FigFunction[] = [
   translateFunction,
 ];
 
-export const getFigFunctionById = (id: string) => figFunctions.find(
-  (figFunction) => figFunction.id === id,
-);
+export const getFigFunctionById = (id: string) =>
+  figFunctions.find((figFunction) => figFunction.id === id);
 
-export const programmingLanguages: string[] = ['ActionScript', 'Bash', 'C', 'C#', 'CLike', 'Clojure', 'CoffeeScript', 'CPP', 'CSS', 'CSS-extr', 'Dart', 'Ddiff', 'Git', 'Go', 'GraphQL', 'Handlebars', 'Java', 'JavaScript', 'JSX', 'LESS', 'Makefile', 'Markup', 'ObjectiveC', 'OCaml', 'PHP', 'Python', 'R', 'Reason', 'Ruby', 'Rust', 'SASS', 'Scala', 'SCSS', 'SQL', 'Stylus', 'TSX', 'TypeScript', 'Wasm', 'YAML'];
+export const programmingLanguages: string[] = [
+  "ActionScript",
+  "Bash",
+  "C",
+  "C#",
+  "CLike",
+  "Clojure",
+  "CoffeeScript",
+  "CPP",
+  "CSS",
+  "CSS-extr",
+  "Dart",
+  "Ddiff",
+  "Git",
+  "Go",
+  "GraphQL",
+  "Handlebars",
+  "Java",
+  "JavaScript",
+  "JSX",
+  "LESS",
+  "Makefile",
+  "Markup",
+  "ObjectiveC",
+  "OCaml",
+  "PHP",
+  "Python",
+  "R",
+  "Reason",
+  "Ruby",
+  "Rust",
+  "SASS",
+  "Scala",
+  "SCSS",
+  "SQL",
+  "Stylus",
+  "TSX",
+  "TypeScript",
+  "Wasm",
+  "YAML",
+];
 
 // Dropdown
-const DEFAULT_DROPDOWN = 'Select Programming Language';
+const DEFAULT_DROPDOWN = "Select Programming Language";
 
 export const removeDefaultDropdown = (dropdownLanguage: string) => {
   if (dropdownLanguage === DEFAULT_DROPDOWN) return null;
@@ -91,17 +138,31 @@ export const removeDefaultDropdown = (dropdownLanguage: string) => {
   return dropdownLanguage;
 };
 
-export const explainLanguagesDropdown = [DEFAULT_DROPDOWN, ...programmingLanguages];
+export const explainLanguagesDropdown = [
+  DEFAULT_DROPDOWN,
+  ...programmingLanguages,
+];
 
-const translatableLanguages: string[] = ['C', 'CPP', 'JavaScript', 'Go', 'Java', 'Ruby', 'Python', 'Haskel', 'OCaml'];
+const translatableLanguages: string[] = [
+  "C",
+  "CPP",
+  "JavaScript",
+  "Go",
+  "Java",
+  "Ruby",
+  "Python",
+  "Haskel",
+  "OCaml",
+];
 
 export const translateLanguagesDropdown = [
   DEFAULT_DROPDOWN,
-  ...translatableLanguages];
+  ...translatableLanguages,
+];
 
 export const INTRO_EXAMPLES = {
   explain: {
-    language: 'Python',
+    language: "Python",
     code: `def twoSum(self, nums, target):
   buffer_dictionary = {}
   for i in rangenums.__len()):
@@ -111,22 +172,22 @@ export const INTRO_EXAMPLES = {
       buffer_dictionary[target - nums[i]] = i`,
   },
   ask: {
-    language: 'OCaml',
+    language: "OCaml",
     code: `let nacci n k =
   if k <= 0 then [0] else
   if k = 1 || k = 2 then [1] else
     List.rev (makeList k [] n)`,
-    question: 'What is the variable k?',
+    question: "What is the variable k?",
   },
   docstring: {
-    language: 'Python',
+    language: "Python",
     code: `def rollem(first, last):
   first_roll = random.randint(first, last)
   second_roll = random.randint(first, last)
   return first_roll + second_roll`,
   },
   complexity: {
-    language: 'Java',
+    language: "Java",
     code: `public static void qSort(int[] b, int h, int k) {
   if (k+1 – h < 2) return;
   int j = partition(b, h, k);
@@ -135,7 +196,7 @@ export const INTRO_EXAMPLES = {
 }`,
   },
   translate: {
-    language: 'JavaScript',
+    language: "JavaScript",
     code: `def push(self, new_data):
   new_node = Node(new_data)
   new_node.next = self.head

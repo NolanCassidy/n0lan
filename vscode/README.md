@@ -1,6 +1,6 @@
 # Figstack
 
-![Version](https://img.shields.io/visual-studio-marketplace/v/figstack.vsc) ![Size](https://img.shields.io/github/languages/code-size/mintlify/figstack) ![Ratings](https://img.shields.io/visual-studio-marketplace/r/figstack.vsc)
+![Version](https://img.shields.io/visual-studio-marketplace/v/figstack.vsc) ![Size](https://img.shields.io/github/languages/code-size/n0lan/figstack) ![Ratings](https://img.shields.io/visual-studio-marketplace/r/figstack.vsc)
 
 [Figstack](https://n0lan.com) helps you read, write, and understand code. Currently, Figstack can answer questions, explain code, generate documentation, and calculate the time complexity of functions.
 
@@ -36,8 +36,8 @@ In order to use the extension, you must sign in with a [Figstack account](https:
 
 ## Learn more about Figstack
 
-Check out our [website](https://n0lan.com) or contact us at [hi@n0lan.com](mailto:hi@mintlify.com)
+Check out our [website](https://n0lan.com) or contact us at [hi@n0lan.com](mailto:hi@n0lan.com)
 
 [Community](https://join.slack.com/t/figstack/shared_invite/zt-uoz4xieq-A59OSZ9cYtjoVw17PIJt_A)
-[Twitter](https://twitter.com/mintlify)
+[Twitter](https://twitter.com/n0lan)
 [LinkedIn](https://www.linkedin.com/company/mintsearch)

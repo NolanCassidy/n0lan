@@ -6,32 +6,20 @@ import { MailIcon } from "@heroicons/react/solid";
 const navigation = {
   main: [
     { name: "Home", href: "/" },
-    { name: "Mintlify", href: "https://mintlify.com" },
-    { name: "Community", href: "https://discord.gg/6W7GuYuxra" },
-    { name: "Blogs", href: "/blogs/what-is-n0lan" },
+    { name: "Nolan Cassidy", href: "https://nolancassidy.com" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/nolancassidy/" },
   ],
   social: [
     {
       name: "Contact Us",
-      href: "mailto:hi@mintlify.com",
+      href: "mailtonolancassidy1@gmail.com",
       icon: function email(props: any) {
         return <MailIcon className="h-6 w-6" {...props} />;
       },
     },
     {
-      name: "Twitter",
-      href: "https://twitter.com/mintlify",
-      icon: function twitter(props: any) {
-        return (
-          <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-          </svg>
-        );
-      },
-    },
-    {
       name: "GitHub",
-      href: "https://github.com/mintlify/n0lan",
+      href: "https://github.com/nolancassidy",
       icon: function github(props: any) {
         return (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -50,6 +38,7 @@ const navigation = {
 export default function Footer() {
   return (
     <footer className="relative z-10 bg-white">
+      {/*
       <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="bg-hero rounded-lg shadow-xl overflow-hidden lg:grid lg:grid-cols-2 lg:gap-4">
           <div className="pt-10 pb-12 px-6 sm:pt-16 sm:px-16 lg:py-16 lg:pr-0 xl:py-20 xl:px-20">
@@ -59,7 +48,7 @@ export default function Footer() {
                 <span className="block">Start your free trial today.</span>
               </h2>
               <p className="mt-4 text-lg leading-6 text-indigo-200">
-                Explore how Figstack can help you before making a commitment
+                Explore how N0lan can help you before making a commitment
               </p>
               <Link href="/api/auth/login" passHref>
                 <button
@@ -82,6 +71,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
+  */}
       <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
         <nav
           className="-mx-5 -my-2 flex flex-wrap justify-center"
@@ -114,7 +104,7 @@ export default function Footer() {
           ))}
         </div>
         <p className="mt-8 text-center text-base text-gray-400">
-          &copy; 2022 Mintlify, Inc. All rights reserved.
+          &copy; 2022 N0lan, Inc. All rights reserved.
         </p>
       </div>
     </footer>

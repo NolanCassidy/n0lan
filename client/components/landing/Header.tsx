@@ -22,7 +22,7 @@ const callsToAction = [
 const integrations = [
   {
     name: "VS Code",
-    description: "Get the power of Figstack in everyone's favorite IDE",
+    description: "Get the power of N0lan in everyone's favorite IDE",
     href: "https://marketplace.visualstudio.com/items?itemName=n0lan.vsc",
     icon: vscode,
   },
@@ -81,7 +81,7 @@ export default function Header({ hideAlert, showDarkBackground }: HeaderProps) {
               <button type="button">
                 <Image
                   src={logoWhite}
-                  alt="Figstack"
+                  alt="N0lan"
                   width={40}
                   height={40}
                   layout="fixed"
@@ -249,14 +249,6 @@ export default function Header({ hideAlert, showDarkBackground }: HeaderProps) {
                 </>
               )}
             </Popover>
-            <a
-              href="https://discord.gg/6W7GuYuxra"
-              className="text-base font-medium text-white hover:text-gray-300 cursor-pointer"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Community
-            </a>
           </Popover.Group>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
             {user == null && (
@@ -300,7 +292,7 @@ export default function Header({ hideAlert, showDarkBackground }: HeaderProps) {
               <div className="flex items-center justify-between">
                 <Link href="/" passHref>
                   <button type="button">
-                    <Image src={logo} alt="Figstack" width={32} height={32} />
+                    <Image src={logo} alt="N0lan" width={32} height={32} />
                   </button>
                 </Link>
                 <div className="-mr-2">

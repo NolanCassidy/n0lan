@@ -22,7 +22,7 @@ export default function Page404() {
       <div className="bg-white">
         <main className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex-shrink-0 pt-16 flex items-center justify-center">
-            <Image width={64} height={64} src={logo} alt="Figstack" />
+            <Image width={64} height={64} src={logo} alt="N0lan" />
           </div>
           <div className="max-w-xl mx-auto py-16 sm:py-12">
             <div className="text-center">

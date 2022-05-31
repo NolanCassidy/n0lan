@@ -42,8 +42,8 @@ Measure the efficiency of your code in Big O notation using `Time Complexity` an
 
 ## Learn more about Figstack
 
-Check out our [website](https://n0lan.com) or contact us at [hi@mintlify.com](mailto:hi@mintlify.com)
+Check out our [website](https://n0lan.com) or contact us at [hi@n0lan.com](mailto:hi@n0lan.com)
 
 [Community](https://discord.gg/AadQyUaMaq)
-[Twitter](https://twitter.com/mintlify)
+[Twitter](https://twitter.com/n0lan)
 [LinkedIn](https://www.linkedin.com/company/mintsearch)

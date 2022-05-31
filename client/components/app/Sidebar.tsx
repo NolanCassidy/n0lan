@@ -98,7 +98,7 @@ export default function Sidebar({ children }: SidebarProps) {
                 </div>
               </Transition.Child>
               <div className="flex-shrink-0 flex items-center px-4">
-                <Image src={logoFull} height={30} width={145} alt="Figstack" />
+                <Image src={logoFull} height={30} width={145} alt="N0lan" />
               </div>
               <div className="mt-5 flex-1 h-0 overflow-y-auto">
                 <nav className="px-2">
@@ -188,7 +188,7 @@ export default function Sidebar({ children }: SidebarProps) {
       <div className="hidden lg:flex lg:flex-shrink-0 border-r border-gray-50">
         <div className="relative flex flex-col w-64 shadow-lg pt-5 pb-4">
           <div className="flex items-center flex-shrink-0 pl-12">
-            <Image src={logoFull} height={30} width={145} alt="Figstack" />
+            <Image src={logoFull} height={30} width={145} alt="N0lan" />
           </div>
           <Separator />
           {/* Sidebar component, swap this element with another sidebar if you like */}

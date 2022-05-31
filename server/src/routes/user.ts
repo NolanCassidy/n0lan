@@ -336,8 +336,8 @@ export const loginOrCreateUser = async (
       });
 
       const subject = given_name
-        ? `Hey ${given_name}, check out Mintlify for smart commenting`
-        : "Check out Mintlify for smart commenting";
+        ? `Hey ${given_name}, check out N0lan for smart commenting`
+        : "Check out N0lan for smart commenting";
 
       await axios.post(
         "https://mandrillapp.com/api/1.0/messages/send-template",
