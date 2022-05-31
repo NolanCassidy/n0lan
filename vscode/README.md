@@ -1,8 +1,6 @@
-# Figstack
+# N0lan
 
-![Version](https://img.shields.io/visual-studio-marketplace/v/figstack.vsc) ![Size](https://img.shields.io/github/languages/code-size/n0lan/figstack) ![Ratings](https://img.shields.io/visual-studio-marketplace/r/figstack.vsc)
-
-[Figstack](https://n0lan.com) helps you read, write, and understand code. Currently, Figstack can answer questions, explain code, generate documentation, and calculate the time complexity of functions.
+[N0lan](https://n0lan.com) helps you read, write, and understand code. Currently, N0lan can answer questions, explain code, generate documentation, and calculate the time complexity of functions.
 
 ## Ask Questions
 
@@ -18,7 +16,7 @@ Having trouble understanding the program that you're looking at? Use `Explain Co
 
 ## Write Docstring
 
-Don't like writing documentation for your functions? Have Figstack's `Docstring Writer` craft detailed docstrings so your functions are always readable and maintable.
+Don't like writing documentation for your functions? Have N0lan's `Docstring Writer` craft detailed docstrings so your functions are always readable and maintable.
 
 ![Write Docstring](/vscode/images/docstring.jpg)
 
@@ -30,14 +28,12 @@ Measure the efficiency of your code in Big O notation using `Time Complexity` an
 
 ## Authentication
 
-In order to use the extension, you must sign in with a [Figstack account](https://n0lan.com). You can sign in by clicking on the Figstack icon in the sidebar.
+In order to use the extension, you must sign in with a [N0lan account](https://n0lan.com). You can sign in by clicking on the N0lan icon in the sidebar.
 
 ---
 
-## Learn more about Figstack
+## Learn more about N0lan
 
 Check out our [website](https://n0lan.com) or contact us at [hi@n0lan.com](mailto:hi@n0lan.com)
 
-[Community](https://join.slack.com/t/figstack/shared_invite/zt-uoz4xieq-A59OSZ9cYtjoVw17PIJt_A)
-[Twitter](https://twitter.com/n0lan)
-[LinkedIn](https://www.linkedin.com/company/mintsearch)
+[LinkedIn](https://www.linkedin.com/in/nolancassidy/)

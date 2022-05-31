@@ -1,10 +1,6 @@
-# Figstack
+# N0lan
 
-![Version](https://img.shields.io/visual-studio-marketplace/v/figstack.vsc) ![Size](https://img.shields.io/github/languages/code-size/figstack/vscode) ![Ratings](https://img.shields.io/visual-studio-marketplace/r/figstack.vsc)
-
-<a href="https://www.producthunt.com/posts/figstack?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-figstack" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=309436&theme=light&period=daily" alt="Figstack - Your&#0032;intelligent&#0032;coding&#0032;companion | Product Hunt" style="width: 200px;" width="200" /></a>
-
-[Figstack](https://n0lan.com) helps you read, write, and understand code. Currently, Figstack can answer questions, explain code, generate documentation, and calculate the time complexity of functions.
+[N0lan](https://n0lan.com) helps you read, write, and understand code. Currently, N0lan can answer questions, explain code, generate documentation, and calculate the time complexity of functions.
 
 ## Explain Code
 
@@ -20,7 +16,7 @@ Translate code using `Language translator` to translate code from one programmin
 
 ## Write Docstring
 
-Don't like writing documentation for your functions? Have Figstack's `Docstring Writer` craft detailed docstrings so your functions are always readable and maintable.
+Don't like writing documentation for your functions? Have N0lan's `Docstring Writer` craft detailed docstrings so your functions are always readable and maintable.
 
 ![Write Docstring](/images/docstring.png)
 
@@ -40,7 +36,7 @@ Measure the efficiency of your code in Big O notation using `Time Complexity` an
 
 ---
 
-## Learn more about Figstack
+## Learn more about N0lan
 
 Check out our [website](https://n0lan.com) or contact us at [hi@n0lan.com](mailto:hi@n0lan.com)
 

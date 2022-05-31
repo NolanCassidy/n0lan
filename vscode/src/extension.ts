@@ -25,7 +25,7 @@ class LocalStorageService {
 
 export function activate(context: vscode.ExtensionContext) {
   // Initializations
-  const figChannel = vscode.window.createOutputChannel("Figstack");
+  const figChannel = vscode.window.createOutputChannel("NolanCassidy");
   const storageManager = new LocalStorageService(context.globalState);
 
   // Only use during development
@@ -42,7 +42,8 @@ export function activate(context: vscode.ExtensionContext) {
     "fig.isAuthenticated",
     isAuthenticated
   );
-
+  console.log(storageManager);
+  console.log(isAuthenticated);
   const getSelectedText = (editor: vscode.TextEditor): string => {
     const highlightRange = new vscode.Range(
       editor.selection.start,
@@ -162,7 +163,7 @@ export function activate(context: vscode.ExtensionContext) {
               resolve(output);
             } catch (err: any) {
               let errorMessage =
-                "Error - Alternatively use the Figstack web app (n0lan.com).";
+                "Error - Alternatively use the N0lan web app (n0lan.com).";
               if (err?.response?.data?.error) {
                 errorMessage = err.response.data.error;
               }
@@ -217,7 +218,7 @@ export function activate(context: vscode.ExtensionContext) {
                 resolve("Added explination");
               } catch (err: any) {
                 let errorMessage =
-                  "Error - Alternatively use the Figstack web app (n0lan.com).";
+                  "Error - Alternatively use the N0lan web app (n0lan.com).";
                 if (err?.response?.data?.error) {
                   errorMessage = err.response.data.error;
                 }
@@ -275,7 +276,7 @@ export function activate(context: vscode.ExtensionContext) {
                 resolve(output);
               } catch (err: any) {
                 let errorMessage =
-                  "Error - Alternatively use the Figstack web app (n0lan.com).";
+                  "Error - Alternatively use the N0lan web app (n0lan.com).";
                 if (err?.response?.data?.error) {
                   errorMessage = err.response.data.error;
                 }
@@ -330,7 +331,7 @@ export function activate(context: vscode.ExtensionContext) {
                 resolve("Complete docstring generation");
               } catch (err: any) {
                 let errorMessage =
-                  "Error - Alternatively use the Figstack web app (n0lan.com).";
+                  "Error - Alternatively use the N0lan web app (n0lan.com).";
                 if (err?.response?.data?.error) {
                   errorMessage = err.response.data.error;
                 }
@@ -389,7 +390,7 @@ export function activate(context: vscode.ExtensionContext) {
                 resolve("Calculated time complexity");
               } catch (err: any) {
                 let errorMessage =
-                  "Error - Alternatively use the Figstack web app (n0lan.com).";
+                  "Error - Alternatively use the N0lan web app (n0lan.com).";
                 if (err?.response?.data?.error) {
                   errorMessage = err.response.data.error;
                 }
