@@ -4,6 +4,7 @@ import {
   PencilIcon,
   TranslateIcon,
   LightBulbIcon,
+  QuestionMarkCircleIcon,
 } from "@heroicons/react/outline";
 
 export type FigFunction = {
@@ -76,12 +77,24 @@ export const complexityFunction = {
   primaryBackground: "text-fig-purple",
 };
 
+export const solveFunction = {
+  id: "solve",
+  icon: QuestionMarkCircleIcon,
+  name: "Problem Solver",
+  description: "Solve coding problems like leet code.",
+  href: "/app/solve",
+  iconForeground: "text-white",
+  iconBackground: "bg-fig-pink",
+  primaryBackground: "text-fig-pink",
+};
+
 export const figFunctions: FigFunction[] = [
   explainFunction,
   askFunction,
   docstringFunction,
   complexityFunction,
   translateFunction,
+  solveFunction,
 ];
 
 export const getFigFunctionById = (id: string) =>

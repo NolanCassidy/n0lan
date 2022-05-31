@@ -403,6 +403,61 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  const solveFunction = vscode.commands.registerCommand(
+    "fig.solve",
+    async () => {
+      vscode.window.withProgress(
+        {
+          location: vscode.ProgressLocation.Notification,
+          title: "Solving code",
+          cancellable: true,
+        },
+        () => {
+          return new Promise(async (resolve, reject) => {
+            const editor = vscode.window.activeTextEditor;
+            if (editor?.selection) {
+              const highlight = getSelectedText(editor);
+              const insertPosition = getInsertPosition(editor);
+              try {
+                const { refreshToken, accessToken } = getTokens();
+                const solveResponse = await axios.post(
+                  `${BACKEND_ENDPOINT}/function/v1/solve`,
+                  {
+                    code: highlight,
+                    inputLanguage: editor.document.languageId,
+                    accessToken,
+                    refreshToken,
+                    source: "vscode",
+                  }
+                );
+                const { output, newTokens } = solveResponse.data;
+                potentiallyReplaceTokens(newTokens);
+                // Add language here
+                const commentedSolve = addComments(
+                  output,
+                  editor.document.fileName
+                );
+                const snippet = new vscode.SnippetString(`${commentedSolve}\n`);
+                editor.insertSnippet(snippet, insertPosition);
+                resolve("Added solution");
+              } catch (err: any) {
+                let errorMessage =
+                  "Error - Alternatively use the N0lan web app (n0lan.com).";
+                if (err?.response?.data?.error) {
+                  errorMessage = err.response.data.error;
+                }
+                vscode.window.showErrorMessage(errorMessage);
+                resolve(errorMessage);
+              }
+            } else {
+              reject("No text selected");
+            }
+          });
+        }
+      );
+    }
+  );
+
   context.subscriptions.push(
     login,
     logout,
@@ -411,6 +466,7 @@ export function activate(context: vscode.ExtensionContext) {
     askFileFunction,
     complexityFunction,
     docstringFunction,
+    solveFunction,
     uriListener
   );
 }

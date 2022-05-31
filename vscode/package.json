@@ -44,6 +44,10 @@
         "title": "Ask Question"
       },
       {
+        "command": "fig.solve",
+        "title": "Solve Problem"
+      },
+      {
         "command": "fig.askFile",
         "title": "Ask Question"
       },
@@ -69,6 +73,13 @@
         "key": "cmd+ctrl+a",
         "mac": "cmd+ctrl+a",
         "win": "ctrl+alt+a",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "fig.solve",
+        "key": "cmd+ctrl+b",
+        "mac": "cmd+ctrl+b",
+        "win": "ctrl+alt+b",
         "when": "editorHasSelection"
       },
       {
@@ -149,6 +160,10 @@
         {
           "when": "editorHasSelection",
           "command": "fig.complexity"
+        },
+        {
+          "when": "editorHasSelection",
+          "command": "fig.solve"
         }
       ]
     }

@@ -4,49 +4,53 @@ import Head from "next/head";
 import axios from "axios";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
-import { ArrowRightIcon, XIcon, LightBulbIcon } from "@heroicons/react/solid";
+import { ArrowRightIcon, XIcon } from "@heroicons/react/solid";
 import CodeEditor from "@components/app/CodeEditor";
-import Output from "@components/app/Output";
+import TextEditor from "@components/app/TextEditor";
 import Sidebar from "@components/app/Sidebar";
 import Dropdown from "@components/app/Dropdown";
 import {
-  docstringFunction,
+  solveFunction,
   translateLanguagesDropdown,
   INTRO_EXAMPLES,
 } from "@components/app/constants";
 import FunctionCard from "@components/app/FunctionCard";
+import Feedback from "@components/app/Feedback";
 import Badge from "@components/app/Badge";
 import useCalledStatus from "@components/hooks/useCalledStatus";
-
-const outputs = ["English"];
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Explain() {
-  const [selectedLanguage, setLanguage] = useState(
+export default function Solve() {
+  const [selectedInputLanguage, setInputLanguage] = useState(
     translateLanguagesDropdown[0]
   );
-  const [selectedOutputLanguage, setOutputLanguage] = useState(outputs[0]);
+  const [selectedOutputLanguage, setOutputLanguage] = useState(
+    translateLanguagesDropdown[0]
+  );
   const [code, setCode] = useState("");
-  const [outputDisplay, setOutputDisplay] = useState("");
+  const [outputCode, setOutputCode] = useState("");
   const [functionId, setFunctionId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const { calledStatus } = useCalledStatus();
 
-  const { input, inputLanguage, output } = router.query;
+  const { input, inputLanguage, output, outputLanguage } = router.query;
 
   useEffect(() => {
     if (input) {
       setCode(input as string);
     }
     if (inputLanguage) {
-      setLanguage(inputLanguage as string);
+      setInputLanguage(inputLanguage as string);
     }
     if (output) {
-      setOutputDisplay(output as string);
+      setOutputCode(output as string);
+    }
+    if (outputLanguage) {
+      setOutputLanguage(outputLanguage as string);
     }
 
     router.replace(router.pathname);
@@ -58,19 +62,19 @@ export default function Explain() {
   }
 
   const onExample = () => {
-    setLanguage(INTRO_EXAMPLES.docstring.language);
-    setCode(INTRO_EXAMPLES.docstring.code);
+    setInputLanguage(INTRO_EXAMPLES.translate.language);
+    setCode(INTRO_EXAMPLES.translate.code);
   };
 
   const onSubmit = async () => {
     if (!isSubmitting) {
       try {
         setIsSubmitting(true);
-        setOutputDisplay("");
+        setOutputCode("");
         setFunctionId("");
-        const response = await axios.post("/api/function/docstring", {
+        const response = await axios.post("/api/function/solve", {
           code,
-          inputLanguage: selectedLanguage,
+          inputLanguage: selectedInputLanguage,
         });
 
         const { data } = response;
@@ -79,7 +83,7 @@ export default function Explain() {
           toast.error(data.error);
         }
 
-        setOutputDisplay(data?.output || "");
+        setOutputCode(data?.output || "");
         setFunctionId(data?.id || "");
         setIsSubmitting(false);
       } catch {
@@ -90,58 +94,24 @@ export default function Explain() {
     }
   };
 
-  const DocStringBadge = (
-    <>
-      <Badge
-        name="docstring"
-        isHidden={isBadgeHidden}
-        content="See how docstring works with an example"
-        onClickExample={onExample}
-      />
-      <div className="inset-x-0 pb-2 sm:pb-5">
-        <div className="w-full mx-auto">
-          <div className="px-3 py-2 rounded-lg bg-yellow-100 border-2 border-yellow-200 shadow-ls">
-            <div className="flex items-center justify-between flex-wrap">
-              <div className="w-0 flex-1 flex items-center">
-                <span className="flex p-1 rounded-lg bg-yellow-400">
-                  <LightBulbIcon
-                    className="h-5 w-5 text-white"
-                    aria-hidden="true"
-                  />
-                </span>
-                <p className="ml-3 text-gray-700 truncate text-sm">
-                  <span>
-                    Generate Documentation using AI in VS Code.{" "}
-                    <a
-                      href="https://marketplace.visualstudio.com/"
-                      className="font-medium"
-                    >
-                      Comming Soon
-                    </a>
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-
   return (
     <>
       <Head>
-        <title>Docstring</title>
+        <title>Problem Solver</title>
       </Head>
       <FunctionCard
-        badge={DocStringBadge}
-        header={docstringFunction.name}
+        badge={
+          <Badge
+            name="solve"
+            isHidden={isBadgeHidden}
+            content="See how translator works with an example"
+            onClickExample={onExample}
+          />
+        }
+        header={solveFunction.name}
         icon={
-          <docstringFunction.icon
-            className={classNames(
-              docstringFunction.primaryBackground,
-              "h-5 w-5"
-            )}
+          <solveFunction.icon
+            className={classNames(solveFunction.primaryBackground, "h-5 w-5")}
             aria-hidden="true"
           />
         }
@@ -152,16 +122,16 @@ export default function Explain() {
               <div className="mb-1">
                 <Dropdown
                   options={translateLanguagesDropdown}
-                  selectedOption={selectedLanguage}
-                  setOption={setLanguage}
+                  selectedOption={selectedInputLanguage}
+                  setOption={setInputLanguage}
                   required
                 />
               </div>
-              <CodeEditor
+              <TextEditor
                 code={code}
                 setCode={setCode}
-                placeholder="Enter Code"
-                language={selectedLanguage}
+                placeholder="Enter Problem"
+                language={selectedInputLanguage}
               />
               <button
                 type="button"
@@ -180,7 +150,7 @@ export default function Explain() {
                   </>
                 ) : (
                   <>
-                    Write
+                    Solve
                     <ArrowRightIcon
                       className="ml-2 h-4 w-4"
                       aria-hidden="true"
@@ -190,18 +160,20 @@ export default function Explain() {
               </button>
             </div>
             <div className="h-full mt-4 sm:m-0">
-              <div className="mb-1">
-                <Dropdown
-                  options={outputs}
-                  selectedOption={selectedOutputLanguage}
-                  setOption={setOutputLanguage}
-                />
+              <div className="mb-3">
+                <span className="block truncate text-gray-800 text-lg font-medium">
+                  Answer
+                </span>
               </div>
-              <Output
-                output={outputDisplay}
-                isLoading={isSubmitting}
-                functionId={functionId}
+
+              <CodeEditor
+                code={outputCode}
+                setCode={() => {}}
+                placeholder="Output"
+                language={selectedOutputLanguage}
+                disabled
               />
+              <Feedback functionId={functionId} />
             </div>
           </div>
         </div>
@@ -210,6 +182,6 @@ export default function Explain() {
   );
 }
 
-Explain.getLayout = function getLayout(page: ReactElement) {
+Solve.getLayout = function getLayout(page: ReactElement) {
   return <Sidebar>{page}</Sidebar>;
 };

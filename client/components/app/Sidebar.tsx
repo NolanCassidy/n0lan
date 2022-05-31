@@ -135,7 +135,7 @@ export default function Sidebar({ children }: SidebarProps) {
                       className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"
                       id="mobile-teams-headline"
                     >
-                      Fig Functions
+                      Functions
                     </h3>
                     <div
                       className="mt-1 space-y-1"
@@ -236,7 +236,7 @@ export default function Sidebar({ children }: SidebarProps) {
                   className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"
                   id="desktop-teams-headline"
                 >
-                  Fig Functions
+                  Functions
                 </h3>
                 <div
                   className="mt-1 space-y-1"
@@ -339,22 +339,9 @@ export default function Sidebar({ children }: SidebarProps) {
                 <h1 className="text-xs font-medium text-gray-300 uppercase tracking-wider">
                   Support
                 </h1>
-                <Link href="https://discord.gg/6W7GuYuxra" passHref>
+                <Link href="https://www.linkedin.com/in/nolancassidy/" passHref>
                   <div className="mt-2 text-xs font-base text-gray-500 cursor-pointer">
-                    Join community
-                  </div>
-                </Link>
-                <Link href="https://forms.gle/PUcMZBTZLQwCrheJ7" passHref>
-                  <div className="mt-2 text-xs font-base text-gray-500 cursor-pointer">
-                    Submit feature request
-                  </div>
-                </Link>
-                <Link
-                  href="https://mintlify.com/?utm_source=n0lan&utm_medium=sidebar"
-                  passHref
-                >
-                  <div className="mt-2 text-xs font-base text-gray-500 cursor-pointer">
-                    Get code search
+                    Add me on LinkedIn
                   </div>
                 </Link>
               </div>

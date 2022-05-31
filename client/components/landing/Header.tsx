@@ -23,8 +23,7 @@ const integrations = [
   {
     name: "VS Code",
     description: "Get the power of N0lan in everyone's favorite IDE",
-    href: "https://marketplace.visualstudio.com/items?itemName=n0lan.vsc",
-    icon: vscode,
+    href: "https://marketplace.visualstudio.com/",
   },
   {
     name: "GitHub",
@@ -55,6 +54,7 @@ export default function Header({ hideAlert, showDarkBackground }: HeaderProps) {
         showDarkBackground ? "bg-hero" : null
       )}
     >
+      {/*}
       {!hideAlert && (
         <div className="relative" style={{ backgroundColor: "#18E299" }}>
           <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
@@ -74,6 +74,7 @@ export default function Header({ hideAlert, showDarkBackground }: HeaderProps) {
           </div>
         </div>
       )}
+      */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -324,16 +325,18 @@ export default function Header({ hideAlert, showDarkBackground }: HeaderProps) {
             </div>
             <div className="py-6 px-5 space-y-6">
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-                <Link href="https://discord.gg/6W7GuYuxra" passHref>
+                <Link href="https://nolancassidy.com" passHref>
                   <span className="text-center text-base font-medium text-gray-900 hover:text-gray-700 cursor-pointer">
-                    Community
+                    Nolan Cassidy
                   </span>
                 </Link>
+                {/*}
                 <Link href="https://mintlify.com/" passHref>
                   <span className="text-center text-base font-medium text-gray-900 hover:text-gray-700 cursor-pointer">
                     Automated Documentation
                   </span>
                 </Link>
+                  */}
               </div>
               <div>
                 <Link href="/api/auth/login" passHref>

@@ -16,6 +16,7 @@ import {
   GET_RETURN,
 } from "../prompts/docstring";
 import { TRANSLATE } from "../prompts/translate";
+import { SOLVE } from "../prompts/solve";
 import { COMPLEXITY } from "../prompts/complexity";
 import { OPENAI_AUTHORIZATION } from "../constants/connection";
 import Fig from "../models/Fig";
@@ -40,6 +41,7 @@ export type FigFunction =
   | "ask"
   | "docstring"
   | "complexity"
+  | "solve"
   | "translate";
 
 type LogFunction = {
@@ -352,6 +354,86 @@ functionRouter.post("/v1/translate", async (req: Request, res: Response) => {
       properties: {
         inputLanguage: inputLanguage,
         outputLanguage: outputLanguage,
+        source,
+      },
+    });
+
+    return res.status(200).send({ id, output, newTokens });
+  } catch (error) {
+    res.status(400).send({
+      error,
+    });
+  }
+});
+
+functionRouter.post("/v1/solve", async (req: Request, res: Response) => {
+  // Should match /api/function/solve on frontend
+  const {
+    code,
+    inputLanguage,
+    accessToken,
+    refreshToken,
+    source,
+    githubUsername,
+  } = req.body;
+
+  try {
+    throwErrorOnEmpty(
+      { value: code, errorOnEmpty: "No code entered" },
+      {
+        value: inputLanguage,
+        errorOnEmpty: "Input language has not been selected",
+      }
+    );
+    throwErrorOnCondition({
+      condition: code.length > MAX_CODE_LENGTH,
+      errorOnFail: `Input cannot exceed over ${MAX_CODE_LENGTH} characters`,
+    });
+    let userInfo, newTokens;
+    if (githubUsername) {
+      userInfo = await getUserInfoFromGitHubUsername(githubUsername);
+    } else {
+      ({ userInfo, newTokens } = await getUserInfoFromToken(
+        accessToken,
+        refreshToken
+      ));
+    }
+    const isQuotaExceeded = await doesExceedQuota(userInfo.email);
+    if (isQuotaExceeded) {
+      throw "Monthly quota exceeded. Upgrade your plan to continue";
+    }
+
+    const { prompt, stop, postFormat } = SOLVE(code, inputLanguage);
+    const codexResponse = await axios.post(
+      CODEX_ENDPOINT,
+      {
+        prompt,
+        temperature: 0.7,
+        max_tokens: AVERAGE_CODEX_TOKENS_BUDGET,
+        stop,
+      },
+      OPENAI_AUTHORIZATION
+    );
+    const firstResponse = codexResponse.data.choices[0].text;
+    const id = uuidv4();
+    const output = postFormat(firstResponse);
+    await logNewFunction({
+      id,
+      email: userInfo.email as string,
+      figFunction: "solve",
+      input: code,
+      output,
+      inputLanguage: inputLanguage,
+      outputLanguage: inputLanguage,
+      source,
+    });
+
+    analytics.track({
+      userId: userInfo.userId,
+      event: "Solve Function",
+      properties: {
+        inputLanguage: inputLanguage,
+        outputLanguage: inputLanguage,
         source,
       },
     });
