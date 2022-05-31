@@ -10,7 +10,7 @@ const vscodeLogin = async (req: NextApiRequest, res: NextApiResponse) => {
     });
     const { refreshToken, accessToken } = refreshTokenRes.data;
     res.redirect(
-      `vscode://NolanCassidy.vsc/callback?refreshToken=${refreshToken}&accessToken=${accessToken}`
+      `vscode://N0lan.vsc/callback?refreshToken=${refreshToken}&accessToken=${accessToken}`
     );
   } catch (error: any) {
     res.send(error.response.data);
