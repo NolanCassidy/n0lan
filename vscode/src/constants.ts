@@ -13,7 +13,7 @@ export const BACKEND_ENDPOINT = IS_DEV
 const auth0Domain = IS_DEV
   ? "https://dev-1ok38q50.us.auth0.com"
   : "https://dev-1ok38q50.us.auth0.com";
-// : "https://n0lan.us.auth0.com";
+// : 'https://n0lan.us.auth0.com';
 const responseType = "code";
 const clientId = IS_DEV
   ? "RggomWkW1VJtyNVtPSUS1JoGkbtdvDkf"

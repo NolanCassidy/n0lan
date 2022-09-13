@@ -62,6 +62,15 @@ export function activate(context: vscode.ExtensionContext) {
     return insertPosition;
   };
 
+  const getInsertPositionEnd = (editor: vscode.TextEditor): vscode.Position => {
+    const endline = editor.document.lineAt(editor.selections[-1].end.line);
+    const insertPosition = new vscode.Position(
+      editor.selections[-1].end.line,
+      endline.firstNonWhitespaceCharacterIndex
+    );
+    return insertPosition;
+  };
+
   const potentiallyReplaceTokens = (
     newTokens: NewTokens | null | undefined
   ) => {
@@ -418,7 +427,7 @@ export function activate(context: vscode.ExtensionContext) {
             const editor = vscode.window.activeTextEditor;
             if (editor?.selection) {
               const highlight = getSelectedText(editor);
-              const insertPosition = getInsertPosition(editor);
+              const insertPosition = getInsertPositionEnd(editor);
               try {
                 const { refreshToken, accessToken } = getTokens();
                 const solveResponse = await axios.post(

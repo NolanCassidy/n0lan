@@ -26,7 +26,7 @@ import Fig from "../models/Fig";
 const CODEX_CUSHMAN_ENDPOINT =
   "https://api.openai.com/v1/engines/code-davinci-002/completions";
 const CODEX_ENDPOINT =
-  "https://api.openai.com/v1/engines/code-davinci-002/completions";
+  "https://api.openai.com/v1/engines/text-davinci-002/completions";
 // const CODEX_CUSHMAN_ENDPOINT =
 //   "https://api.openai.com/v1/engines/code-cushman-001/completions";
 const AVERAGE_CODEX_TOKENS_BUDGET = 680;
@@ -405,10 +405,10 @@ functionRouter.post("/v1/solve", async (req: Request, res: Response) => {
 
     const { prompt, stop, postFormat } = SOLVE(code, inputLanguage);
     const codexResponse = await axios.post(
-      CODEX_ENDPOINT,
+      CODEX_CUSHMAN_ENDPOINT,
       {
         prompt,
-        temperature: 0.7,
+        temperature: 0.0,
         max_tokens: AVERAGE_CODEX_TOKENS_BUDGET,
         stop,
       },

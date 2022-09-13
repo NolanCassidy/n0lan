@@ -3,7 +3,7 @@ import { Prompt, addCommentsToLanguage } from "./utility";
 export const SOLVE = (code: string, inputLanguage: string): Prompt => {
   const inputLanguageCommented = addCommentsToLanguage(inputLanguage);
   return {
-    prompt: `Read the following problem and code a solution using ${inputLanguage}
+    prompt: `Question:
 ${code}
 ###
 ${inputLanguageCommented} Answer:
